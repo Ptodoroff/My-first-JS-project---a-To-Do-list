@@ -73,3 +73,8 @@ table{
     border-style:ridge;
     padding: 5px;
 }
+
+
+.checked { 
+    text-decoration: line-through;
+  }
