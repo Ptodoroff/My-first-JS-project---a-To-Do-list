@@ -19,7 +19,7 @@ function addTodo(item) {
         console.log(tasks);
         $taskList.innerHTML=tasks.map(todo=>`<li class="${todo.id} listItem">
                               ${todo.name}
-                              <button type='submit' class="complete" > Complete </button>
+                              <button type='submit' class="complete" > Complete </button> <button class='delete'> Delete task </button>
                               </li>`).join('');
     }
    
@@ -32,9 +32,16 @@ for (let $complete of $taskList.querySelectorAll('.complete')) {
         console.log(todo.completed);
         console.log(event.target);
          $complete.parentNode.classList.toggle("checked");
+         $complete.classList.toggle("checked");
     }
 }
 
+for (let $delete of $taskList.querySelectorAll('.delete')){
+    $delete.addEventListener('click',deleteCompleted)
+    function deleteCompleted (){
+        $delete.parentElement.remove();
+    }
+}
 
 
 }
