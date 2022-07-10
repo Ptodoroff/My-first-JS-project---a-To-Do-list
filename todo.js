@@ -64,28 +64,28 @@ function addTodo(item) {
         localStorage.setItem('tasks',JSON.stringify(tasks))
                 
    
+        for (let $complete of $taskList.querySelectorAll('.complete')) {
+            $complete.addEventListener('click' ,checkCompleted);
+            function checkCompleted (event) {
+                
+                console.log(todo.completed);
+                console.log(event.target);
+                 $complete.parentElement.classList.toggle("checked");
+                 $complete.classList.toggle("checked");
+            }
+        }
         
+        for (let $delete of $taskList.querySelectorAll('.delete')){
+            $delete.addEventListener('click',deleteCompleted)
+            function deleteCompleted (){
+                $delete.parentElement.remove();
+            }
+        }
 
     getLS();
 
     }
-    for (let $complete of $taskList.querySelectorAll('.complete')) {
-        $complete.addEventListener('click' ,checkCompleted);
-        function checkCompleted (event) {
-            
-            console.log(todo.completed);
-            console.log(event.target);
-             $complete.parentElement.classList.toggle("checked");
-             $complete.classList.toggle("checked");
-        }
-    }
-    
-    for (let $delete of $taskList.querySelectorAll('.delete')){
-        $delete.addEventListener('click',deleteCompleted)
-        function deleteCompleted (){
-            $delete.parentElement.remove();
-        }
-    }
+
     
 
 
