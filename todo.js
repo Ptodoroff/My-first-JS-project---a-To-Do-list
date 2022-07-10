@@ -3,8 +3,8 @@ let currentDate=document.getElementById('currentDate');
 currentDate.innerHTML=`<u>${date.toLocaleString()}</u>`;
 
 
-let tasks;
-tasks=tasks? JSON.parse(localStorage.getItem("tasks")):[];
+let tasks=[];
+
 let $taskList=document.querySelector('.taskList');
 let $task=document.querySelector('#todo-input');
 let $todoItemsLsit=document.querySelector('.item')
@@ -16,7 +16,8 @@ let todo={
     completed: false
 };
         function getLS(){
-            tasks=JSON.parse(localStorage.getItem("tasks"))
+            tasks=JSON.parse(localStorage.getItem('tasks'));
+            
             if (tasks) {
                 $taskList.innerHTML=tasks.map(todo=>`<li class="listItem" data-key="${todo.id}">
                 ${todo.name}
@@ -50,25 +51,24 @@ console.log(tasks);
 
 function addTodo(item) {
     
+    tasks=tasks?JSON.parse(localStorage.getItem('tasks')):[];
     if (item!=='') {
          todo={
             id: JSON.stringify(Date.now()),
             name: item,
             completed: false
         }
-         
+       
+        localStorage.setItem('todo',JSON.stringify(todo))
+        tasks.push(todo);
+        localStorage.setItem('tasks',JSON.stringify(tasks))
+                
+   
         
 
-        $taskList.innerHTML+=tasks.map(todo=>`<li class="listItem" data-key="${todo.id}">
-                              ${todo.name}
-                              <button type='submit' class="complete" > Complete </button> <button class='delete'> Delete task </button>
-                              </li>`).join('');
-         tasks=JSON.parse(localStorage.getItem('tasks'))
-         localStorage.setItem('todo', JSON.stringify(todo));
-         tasks.push(todo);
-        localStorage.setItem('tasks', JSON.stringify(tasks))                    
+    getLS();
+
     }
-   
     for (let $complete of $taskList.querySelectorAll('.complete')) {
         $complete.addEventListener('click' ,checkCompleted);
         function checkCompleted (event) {
